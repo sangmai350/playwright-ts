@@ -4,16 +4,19 @@ on:
   push:
     branches:
       - main
-      - 'master'
+      - master
+
 jobs:
-    tests_e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - name: install dependencies
-        run: npm ci
-      - name: install playwright browsers
-        run: npx playwright install --with-deps
-      - name: npm run test
-        run: npm run test
+    test:
+      name: Run end-to-end tests
+      timeout-minutes: 60
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+        - name: install dependencies
+          run: npm ci
+        - name: install playwright browsers
+          run: npx playwright install --with-deps
+        - name: npm run test
+          run: npm run test
